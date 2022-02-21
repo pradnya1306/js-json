@@ -60,7 +60,7 @@ function checkpassword(qwe,password2){
 console.log("Welcome to Facebok page")
 login_signup=string.question("what you choose (1)signup  or (2)login (give number): ")
 const fs=require('fs')
-var file=fs.existsSync("pradnya.json")
+var file=fs.existsSync("pradnya1.json")
 
 
 if (file==false){
@@ -90,7 +90,7 @@ if (file==false){
     mylist.push(user)
     console.log(mylist)
 
-    fs.writeFileSync("pradnya.json",JSON.stringify(mylist,null,4))
+    fs.writeFileSync("pradnya1.json",JSON.stringify(mylist,null,4))
     console.log(user_name,"your account is successfully created")
 }
 else if (file==true){
@@ -101,7 +101,7 @@ else if (file==true){
         password2=string.question("enter your confirm password : ")
         checkpassword(qwe,password2)
         
-        data1=fs.readFileSync("pradnya.json","utf8")
+        data1=fs.readFileSync("pradnya1.json","utf8")
         
         if (data1.includes(user_name )){
             console.log("This account is already exists")
@@ -119,34 +119,33 @@ else if (file==true){
             for (i=0; i<list1.length;i++){
                 user[list1[i]]=list2[i]
             }
-            data1=fs.readFileSync("pradnya.json","utf8")
+            data1=fs.readFileSync("pradnya1.json","utf8")
             data=JSON.parse(data1)
             data.push(user)
-            fs.writeFileSync("pradnya.json",JSON.stringify(data,null,4))
+            fs.writeFileSync("pradnya1.json",JSON.stringify(data,null,4))
         }
     }
     else if(login_signup=="2"){
         login_name=string.question("enter the name : ")
         login_password=string.question("enter the password : ")
-        p=fs.readFileSync("pradnya.json","utf8")
+        p=fs.readFileSync("pradnya1.json","utf8")
         var data=JSON.parse(p)
+        let flag=true
         for (i of data){
-            if (i["username"]==login_name){
-
-                if (i["password"]==login_password){
+            if ((i["username"]==login_name)&&(i["password"]==login_password)){
                     console.log("login successfully")
                     for (m in i){
-                        console.log("your",m,"is",i[m])
-                    }
-                    break
-                }
-                else{
-                    console.log("password is incorrect")
-                    break
-                }
-            } 
-        
+                        console.log("your",m,"is",i[m])    
+                    } 
+                    flag=false
+                        break     
+            }   
+        }
+        if(flag==true){
+            console.log("Invalid user info") 
         } 
+        
+        }
     } 
-}
+
 
